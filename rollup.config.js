@@ -36,7 +36,7 @@ export default [
     output: [
       {
         name: pkg.name,
-        file: `dist/${pkg.name}.min.js`,
+        file: `dist/index.min.js`,
         format: 'umd',
         exports: 'named',
       },

@@ -1,7 +1,7 @@
 {
   "name": "fsac",
   "homepage": "https://github.com/stardisblue/fsac",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.min.js",
   "module": "dist/index.js",
   "browser": "dist/index.cjs.js",
