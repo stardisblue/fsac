@@ -1,3 +1,6 @@
+import RBush from 'rbush';
+import { Ref } from './ref';
+
 export type Circle = {
   x: number;
   y: number;
@@ -6,6 +9,7 @@ export type Circle = {
   children: any;
   data?: any;
 };
+
 export function bbox(circle: Circle) {
   return {
     minX: circle.x - circle.r,
@@ -31,4 +35,18 @@ function Cluster(x: number, y: number, n: number, children: any, data = null) {
   const obj: Circle = { x, y, r: Math.sqrt(n), n, children };
   if (data) obj.data = data;
   return obj;
+}
+
+export class CircleRbush<T extends Circle = Circle> extends RBush<Ref<T>> {
+  toBBox(item: Ref<T>) {
+    return bbox(item.v);
+  }
+
+  compareMinX(a: Ref<T>, b: Ref<T>) {
+    return a.v.x - a.v.r - (b.v.x - b.v.r);
+  }
+
+  compareMinY(a: Ref<T>, b: Ref<T>) {
+    return a.v.y - a.v.r - (b.v.y - b.v.r);
+  }
 }
