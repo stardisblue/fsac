@@ -12,18 +12,18 @@ Code and plots used in the paper.
 
 ### Synthetic
 
-- Results offline [📄 notebook jupyter](https://nbviewer.jupyter.org/urls/seafile.lirmm.fr/f/a7cafa3fcf47487a9dcf//%3Fraw%3D1)
-- Results online [📄 notebook jupyter](https://nbviewer.jupyter.org/urls/seafile.lirmm.fr/f/025f23492986484795bf//%3Fraw%3D1)
+- Results offline [📄 notebook jupyter](https://nbviewer.jupyter.org/urls/seafile.lirmm.fr/f/a7cafa3fcf47487a9dcf//%3Fraw%3D1), [💾 raw results](https://seafile.lirmm.fr/d/04d94e91e5114a31933c/)
+- Results online [📄 notebook jupyter](https://nbviewer.jupyter.org/urls/seafile.lirmm.fr/f/025f23492986484795bf//%3Fraw%3D1), [💾 raw results](https://seafile.lirmm.fr/d/b44a34bda6734348b2d5/)
 - Plots [📁 seafile](https://seafile.lirmm.fr/d/5c8c97a01588425f9fb9/)
 
 ### Real
 
-- [🔗 Result data](https://observablehq.com/@stardisblue/benchmark-results)
+- [🔗 Result data](https://observablehq.com/@stardisblue/benchmark-results), [💾 raw results](https://seafile.lirmm.fr/d/5305c5d7c9ce431daa0e/)
 - [📊 Statistics](https://observablehq.com/@stardisblue/sac-statistics-real-dataset)
 
 ## Benchmark
 
-Code used to prepare the data in ([Dataset](#dataset)) and the code used to do the benchmark ([Benchmark Code](#benchmark-code))
+Code used to prepare the data in ([Dataset](#dataset)) and the code used to do the benchmark ([Benchmark Code](#benchmark-code)). For more detailed instructions on reproducibility, go to [docs > benchmark instructions](docs/benchmark-instructions.md).
 
 ### Dataset
 
