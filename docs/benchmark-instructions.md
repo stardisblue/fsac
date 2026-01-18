@@ -11,7 +11,7 @@ To reproduce and obtain the results presented in the paper, follow these steps. 
 
 To benchmark synthetic data, visit [observablehq/Synthetic](https://observablehq.com/d/bbe2ffd9be68d2d5). This platform allows you to generate results and requires an internet connection.
 
-![Synthetic Benchmark Interface](synthetic_benchmark_options.png)
+![Synthetic Benchmark Interface](images/synthetic_benchmark_options.png)
 
 
 1. **Selection of Algorithms**: Identify the algorithms for which benchmark data is to be generated. While multiple algorithms can be selected simultaneously, this may result in browser instability or crashes when processing large datasets. We therefore recommend proceeding cautiously and, if necessary, executing algorithms sequentially.
@@ -20,7 +20,7 @@ To benchmark synthetic data, visit [observablehq/Synthetic](https://observablehq
 4. **Execution of the Benchmark**: Once the algorithms, iterations, and configurations have been specified, initiate the benchmarking procedure by enabling the "start" checkbox. Progress is reported in real-time, allowing monitoring of the execution.
 5. **Retrieval of Results**: Upon completion, export the `benchmark` variable in JSON format. Files should be placed in the appropriate directories (`results/online` for online algorithms, `results/offline` for offline algorithms). Ensure that these directories exist prior to exporting the results to avoid inconsistencies.
 
-    <video controls src="export_results.mp4" title="Title"></video>
+    <video controls src="images/export_results.mp4" title="Title"></video>
 6. **Resetting the Benchmark Environment**: Prior to initiating a new benchmarking procedure or switching configurations, employ the reset function to clear all accumulated results. This prevents contamination of subsequent runs with data from previous executions.
 
 
@@ -30,7 +30,7 @@ To benchmark synthetic data, visit [observablehq/Synthetic](https://observablehq
 - Run one algorithm at a time when dealing with large datasets.
 - To resume a long process from a specific sample, adjust the "sample n°" cursor, reset results, then check "start" to continue.
 
-    ![select custom sample](select_sample.png)
+    ![select custom sample](images/select_sample.png)
 
 If the algorithm name starts with "offline," save the JSON in `results/offline`. Otherwise, save it in `results/online`. Ensure both folders exist before saving.
 
@@ -133,7 +133,7 @@ The following notebooks provide the dataset preparation workflows:
 
 To run a benchmark on real datasets:
 
-![Real benchmark options](real_benchmark_options.png)
+![Real benchmark options](images/real_benchmark_options.png)
 
 1. **Select Algorithms**: Use the checkbox list to choose one or multiple algorithms.
     - If an algorithm type is **offline**, the notebook automatically selects the offline version of the dataset.
@@ -152,7 +152,7 @@ To run a benchmark on real datasets:
 > - Once the algorithm(s) and dataset(s) are selected, the benchmark is executed **automatically**; there is no separate “start” button.
 > - At the end of the execution, the **`results` variable** contains all benchmark results. Users should **download this variable in JSON format** to save the data.
 >
->    ![results variable](real_benchmark_export.png)
+>    ![results variable](images/real_benchmark_export.png)
 > - Users do **not** need to download any files manually beforehand.
 > - All preprocessing, data import, and benchmark calculations are handled automatically by the notebook.
 > - Inspecting the dataset notebooks is optional and useful only for understanding the preprocessing workflow.
@@ -171,7 +171,7 @@ Workflow:
 1. After running the Benchmark Primer, **download the `results` variable** in JSON format.
 2. In the Benchmark Results notebook, **import all JSON files** using Observable's `FileAttachment`. The notebook aggregates them into the variable `alternating`, which contains all benchmark results:
 
-    ![benchark results](benchmark_results.png)
+    ![benchark results](images/benchmark_results.png)
 3. The notebook automatically processes `alternating` to generate summary metrics and reproduce the outputs shown in the paper.
 
 
