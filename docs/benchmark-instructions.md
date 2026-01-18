@@ -1,5 +1,4 @@
 # Benchmark instructions
-
 ## Quickstart
 
 To reproduce and obtain the results presented in the paper, follow these steps. While the process is similar for synthetic and real datasets, there are some differences in specific steps.
@@ -12,65 +11,112 @@ To reproduce and obtain the results presented in the paper, follow these steps. 
 
 To benchmark synthetic data, visit [observablehq/Synthetic](https://observablehq.com/d/bbe2ffd9be68d2d5). This platform allows you to generate results and requires an internet connection.
 
-1. **Select Algorithms**: Choose the algorithms you want to generate data for. While selecting multiple algorithms is possible, it may lead to crashes, so proceed with caution.
-2. **Set Iterations per Sample**: Specify the number of iterations per sample. This determines the execution time by generating multiple occurrences of the same sample. If you only need the result for the selected algorithm, set this value to 1.
-3. **Choose Configurations**: Select the configurations you want to run. By default, all configurations are selected, though you can adjust this as needed.
-4. **Start the Process**: After setting your parameters, check the "start" checkbox to begin. The process will run with the selected settings, and progress updates will be displayed in real-time.
-5. **Download Results**: Once the process is complete, download the results in JSON format by exporting the `benchmark` variable.
-6. **Reset Results**: Use the reset button to clear accumulated results before starting a new process.
+![Synthetic Benchmark Interface](synthetic_benchmark_options.png)
+
+
+1. **Selection of Algorithms**: Identify the algorithms for which benchmark data is to be generated. While multiple algorithms can be selected simultaneously, this may result in browser instability or crashes when processing large datasets. We therefore recommend proceeding cautiously and, if necessary, executing algorithms sequentially.
+2. **Specification of Iterations per Sample**: Define the number of iterations to perform per sample. Increasing this number generates multiple instances of the same sample, which can provide more robust runtime statistics but increases computational time. For a single evaluation of the selected algorithm, set this value to 1.
+3. **Configuration Selection**: Choose the experimental configurations to execute. By default, all configurations are selected; however, selective execution may be preferable to manage memory consumption and execution time on large datasets.
+4. **Execution of the Benchmark**: Once the algorithms, iterations, and configurations have been specified, initiate the benchmarking procedure by enabling the "start" checkbox. Progress is reported in real-time, allowing monitoring of the execution.
+5. **Retrieval of Results**: Upon completion, export the `benchmark` variable in JSON format. Files should be placed in the appropriate directories (`results/online` for online algorithms, `results/offline` for offline algorithms). Ensure that these directories exist prior to exporting the results to avoid inconsistencies.
+
+    <video controls src="export_results.mp4" title="Title"></video>
+6. **Resetting the Benchmark Environment**: Prior to initiating a new benchmarking procedure or switching configurations, employ the reset function to clear all accumulated results. This prevents contamination of subsequent runs with data from previous executions.
+
 
 **Tips for Handling Large Configurations**:
 
-- When working with large `qte` values (greater than 12,800), it’s recommended to select one configuration at a time. After downloading the data, reset the results and proceed with the next configuration.
-- To minimize the risk of crashes, run one algorithm at a time when dealing with large datasets.
-- For very large configurations, restarting the process from a specific variant can be helpful. Scroll down and adjust the "sample n°" cursor to set the starting point for the desired configuration. Make sure to reset the results first, and once the starting point is adjusted, check the "start" checkbox to resume the process.
+- For large `qte` values (>12,800), select one configuration at a time. Reset results after each download.
+- Run one algorithm at a time when dealing with large datasets.
+- To resume a long process from a specific sample, adjust the "sample n°" cursor, reset results, then check "start" to continue.
 
-If the selected algorithm name begins with "offline," save the downloaded JSON file in the `results/offline` folder. Otherwise, save it in the `results/online` folder. Before doing this, ensure that both the `results/offline` and `results/online` folders are created. The name of the downloaded file is not important, but keep in mind that downloading benchmark results may overwrite existing files.
+    ![select custom sample](select_sample.png)
+
+If the algorithm name starts with "offline," save the JSON in `results/offline`. Otherwise, save it in `results/online`. Ensure both folders exist before saving.
+
+---
+
+#### Results Folder Structure and Format
+
+Benchmark results must be stored using the following structure:
+
+```
+results/
+  online/
+    *.json
+  offline/
+    *.json
+```
+
+> **Notes:**
+>
+> - Multiple JSON files can coexist in each folder.
+> - All files are automatically loaded and concatenated by the notebooks using Pandas.
+> - Filenames do not matter, but all JSON files in the folder are included.
+> - Malformed files may cause notebook execution to fail.
+
+---
+
+#### Reproducibility Goal
+
+The goal is to exactly reproduce the results and figures presented in the paper:
+
+- Online vs Offline performance comparisons.
+- Runtime and scalability analysis on synthetic datasets.
+- Visualization plots generated from benchmark results.
+
+All synthetic data generation and benchmarking procedures are **seeded**. When using the same software and configurations, results are deterministic and identical across runs.
+
+Reproduction is considered successful when:
+
+1. JSON files are correctly stored in `results/online` and `results/offline`.
+2. Visualization notebooks execute without errors.
+3. Generated plots match the paper’s figures (same curves and numerical values).
+
+If discrepancies occur, they are most likely caused by differences in software versions or execution environments.
+
+---
 
 #### Visualisation
 
 > Notebook renders are available on Nbviewer: [Online Notebook](https://nbviewer.org/urls/seafile.lirmm.fr/f/025f23492986484795bf/%3Fraw%3D1) and [Offline Notebook](https://nbviewer.org/urls/seafile.lirmm.fr/f/a7cafa3fcf47487a9dcf/%3Fraw%3D1).
 
-For this step, you will need Python installed.
+Requirements:
 
-You will also need the following Python libraries: `nbconvert`, `pandas`, `scikit-learn`, `numpy`, `seaborn`, and `matplotlib`.
+- Python (tested with 3.10+)
+- Libraries: `nbconvert`, `pandas`, `scikit-learn`, `numpy`, `seaborn`, `matplotlib`
 
-It is recommended to use a virtual environment. To create one and install the required libraries, run:
+Recommended: create a virtual environment:
 
 ```bash
 python -m venv venv
-source venv/bin/activate   # On Linux/Mac
-venv\Scripts\activate      # On Windows
+source venv/bin/activate   # Linux/Mac
+venv\Scripts\activate      # Windows
 
 pip install nbconvert pandas scikit-learn numpy seaborn matplotlib
 ```
 
-Once the results have been generated and saved in their respective folders, download the Jupyter notebooks used to create the plots. Place these notebooks in the same directory as the `results` folder.
+Place the notebooks (`result-visualisation-online.ipynb` and `result-visualisation-offline.ipynb`) in the same directory as `results/`.
 
-Two notebooks are available: `result-visualisation-online.ipynb` for online results and `result-visualisation-offline.ipynb` for offline results. You can download them here: [Online Notebook](https://seafile.lirmm.fr/f/025f23492986484795bf/) and [Offline Notebook](https://seafile.lirmm.fr/f/a7cafa3fcf47487a9dcf/).
+- [Download `result-visualisation-online.ipynb`](https://seafile.lirmm.fr/f/025f23492986484795bf/)
+- [Download `result-visualisation-offline.ipynb`](https://seafile.lirmm.fr/f/a7cafa3fcf47487a9dcf/)
 
-Create an `images` folder to store the generated plots.
+Create an `images/` folder to store generated plots.
 
-Once the folder is ready, run the notebooks without opening a web browser by using:
+Execute the notebooks without opening a browser:
 
 ```bash
 jupyter nbconvert --to notebook --execute result-visualisation-online.ipynb --inplace
 jupyter nbconvert --to notebook --execute result-visualisation-offline.ipynb --inplace
 ```
 
-These commands execute all cells in the notebooks and save the outputs directly into the same files.
+The notebooks will automatically retrieve data from `results/online` and `results/offline` and generate the plots.
 
-The notebooks will automatically retrieve the data from the `results/online` and `results/offline` folders and generate the plots.
+### Real Datasets
 
-## Advanced topics
+The real datasets used in this project are prepared via dedicated Observable notebooks. These notebooks handle all preprocessing, cleaning, and structuring of the data into the required format for benchmarking.
 
-### Dataset Preparation
-
-There are two kinds of datasets used in this project: generated (synthetic) and real. Most of the benchmarking and analysis was done on [Observable](https://observablehq.com/).
-
-#### Real Datasets
-
-Real datasets are first prepared using notebooks, as listed below:
+The following notebooks provide the dataset preparation workflows:
 
 - [Siprojuris Dataset](https://observablehq.com/@stardisblue/siprojuris-dataset)
 - [Siprojuris Localisation Dataset](https://observablehq.com/@stardisblue/siprojuris-localisation-dataset)
@@ -80,4 +126,56 @@ Real datasets are first prepared using notebooks, as listed below:
 - [Glottovis Dataset](https://observablehq.com/@stardisblue/castermans-glottovis-dataset)
 - [OCS Wrecks, Coastal Scale Dataset](https://observablehq.com/@stardisblue/ocs-wrecks-coastal-scale-dataset)
 
-The workflow for preparing each real dataset is as follows:
+
+#### Benchmark
+
+> The benchmark for real datasets is executed via the [Benchmark Primer](https://observablehq.com/@stardisblue/benchmark-primer) notebook. This notebook automatically imports the datasets from the preparation notebooks listed above and runs the benchmark interactively.
+
+To run a benchmark on real datasets:
+
+![Real benchmark options](real_benchmark_options.png)
+
+1. **Select Algorithms**: Use the checkbox list to choose one or multiple algorithms.
+    - If an algorithm type is **offline**, the notebook automatically selects the offline version of the dataset.
+    - Selecting multiple algorithms is possible but may increase execution time and can lead to crashes.
+
+2. **Select Datasets**: Choose one or multiple real datasets from the checkbox list.
+    - The corresponding datasets are imported automatically from their preparation notebooks.
+
+3. **Set Iterations**: Specify the number of iterations for benchmarking execution time.
+    - Each iteration produces the full benchmark results for the same configuration.
+    - The only variable that changes between iterations is the execution time.
+    - This allows measuring runtime statistics (mean/median) without affecting the benchmark results themselves.
+    - Default is 1 iteration.
+
+> **Note:**
+> - Once the algorithm(s) and dataset(s) are selected, the benchmark is executed **automatically**; there is no separate “start” button.
+> - At the end of the execution, the **`results` variable** contains all benchmark results. Users should **download this variable in JSON format** to save the data.
+>
+>    ![results variable](real_benchmark_export.png)
+> - Users do **not** need to download any files manually beforehand.
+> - All preprocessing, data import, and benchmark calculations are handled automatically by the notebook.
+> - Inspecting the dataset notebooks is optional and useful only for understanding the preprocessing workflow.
+
+**Tips for Interactive Usage**:
+
+- For long-running experiments, select one algorithm or dataset at a time to minimize waiting.
+
+
+#### Results Analysis
+
+> Results for real datasets are analyzed using the [Benchmark Results](https://observablehq.com/@stardisblue/benchmark-results) notebook.
+
+Workflow:
+
+1. After running the Benchmark Primer, **download the `results` variable** in JSON format.
+2. In the Benchmark Results notebook, **import all JSON files** using Observable's `FileAttachment`. The notebook aggregates them into the variable `alternating`, which contains all benchmark results:
+
+    ![benchark results](benchmark_results.png)
+3. The notebook automatically processes `alternating` to generate summary metrics and reproduce the outputs shown in the paper.
+
+
+> **Notes on Reproducibility:**
+>
+> - **Validation of published results:** Users can directly use the exported JSON files. No fork or re-execution of preparation notebooks is needed.
+> - **Full reproduction with custom datasets:** To rerun the benchmark with downloaded datasets that are different from the original, users must fork the preparation notebooks and run the forked **Benchmark Primer** notebook.
